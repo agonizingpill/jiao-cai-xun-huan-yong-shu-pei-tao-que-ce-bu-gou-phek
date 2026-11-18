@@ -83,6 +83,9 @@ def recommend(id:int,s=Depends(session),u=Depends(writer)):
 @app.post('/packs/{id}/reserve')
 def reserve(id:int,s=Depends(session),u=Depends(supervisor)):
     x=packs.reserve(s,id,u);s.commit();return x
+@app.get('/packs/{id}/feasibility')
+def pack_feasibility(id:int,s=Depends(session),u=Depends(current)):
+    return packs.feasibility(s,id)
 @app.post('/purchases/{id}/receive')
 def receive(id:int,d:ReceiveInput,s=Depends(session),u=Depends(supervisor)):
     x=packs.receive(s,id,d,u);s.commit();return x
